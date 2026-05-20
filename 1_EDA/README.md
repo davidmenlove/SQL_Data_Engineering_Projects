@@ -75,7 +75,7 @@ By querying across these interconnected tables, I extracted insights about skill
 ### Key Insights
 
 - 🧠 Core languages: SQL and Python each appear in ~29,000 job postings, making them the most demanded skills
-- ☁️ Cloud platforms: AWS and Azure are critical for modern data engineering roles- 
+- ☁️ Cloud platforms: AWS and Azure are critical for modern data engineering roles 
 - 🧱 Infra & tooling: Kubernetes, Docker, and Terraform are associated with premium salaries
 - 🔥 Big data tools: Apache Spark shows strong demand with competitive compensation
 
