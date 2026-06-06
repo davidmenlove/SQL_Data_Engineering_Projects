@@ -1,9 +1,8 @@
 # 🏗️ Data Warehouse & Mart Build: Production ETL Pipeline
 
-** Fill this in **
 An end-to-end data engineering pipeline that transforms raw CSV files from Google Cloud Storage into a normalized star schema data warehouse, then builds analytical data marts.
 
-![Data Pipeline Architecture](../../Resources/images/1_2_Project2_Data_Pipeline.png)
+![Data Pipeline Architecture](../images/1_2_Project2_Data_Pipeline.png)
 
 ---
 
@@ -52,7 +51,6 @@ Raw job posting data arrives as flat CSV files in Google Cloud Storage—not str
 ├── 04_create_skills_mart.sql      # Skills demand mart
 ├── 05_create_priority_mart.sql    # Priority roles mart
 ├── 06_update_priority_mart.sql    # Priority mart incremental update (MERGE)
-├── 07_create_company_mart.sql     # Company hiring mart (optional)
 ├── build_dw_marts.sql             # Master SQL build script
 └── README.md                       # You are here
 ```
@@ -62,7 +60,7 @@ Raw job posting data arrives as flat CSV files in Google Cloud Storage—not str
 ## 🏗️ Pipeline Architecture
 
 
-![Data Pipeline Architecture](../../Resources/images/1_2_Project2_Data_Pipeline.png)
+![Data Pipeline Architecture](../images/1_2_Project2_Data_Pipeline.png)
 
 The pipeline transforms job posting CSVs from Google Cloud Storage into a normalized star schema data warehouse, then builds specialized analytical data marts. BI tools (Excel, Power BI, Tableau, Python) consume from both the warehouse and marts.
 
@@ -70,7 +68,7 @@ The pipeline transforms job posting CSVs from Google Cloud Storage into a normal
 
 The data warehouse implements a star schema with `company_dim`, `skills_dim`, `job_postings_fact`, and `skills_job_dim` tables.
 
-![Data Warehouse Schema](../../Resources/images/1_2_Data_Warehouse.png)
+![Data Warehouse Schema](../images/1_2_Data_Warehouse.png)
 
 - **SQL Files:**
   - [`01_create_tables_dw.sql`](./01_create_tables_dw.sql) – Defines star schema with 4 core tables
@@ -82,7 +80,7 @@ The data warehouse implements a star schema with `company_dim`, `skills_dim`, `j
 
 Denormalized table with all dimensions for ad-hoc queries.
 
-![Flat Mart Schema](../../Resources/images/1_2_Flat_Mart.png)
+![Flat Mart Schema](../images/1_2_Flat_Mart.png)
 
 - **SQL File:** [`03_create_flat_mart.sql`](./03_create_flat_mart.sql) – Builds denormalized table with all dimensions joined
 - **Purpose:** Denormalized table for quick ad-hoc queries
@@ -92,7 +90,7 @@ Denormalized table with all dimensions for ad-hoc queries.
 
 Time-series skill demand analysis with additive measures.
 
-![Skills Mart Schema](../../Resources/images/1_2_Skills_Mart.png)
+![Skills Mart Schema](../images/1_2_Skills_Mart.png)
 
 - **SQL File:** [`04_create_skills_mart.sql`](./04_create_skills_mart.sql) – Builds time-series skill demand mart
 - **Purpose:** Time-series analysis of skill demand over time with additive measures
@@ -103,7 +101,7 @@ Time-series skill demand analysis with additive measures.
 
 Priority role tracking with incremental updates using MERGE operations.
 
-![Priority Mart Schema](../../Resources/images/1_2_Priority_Mart.png)
+![Priority Mart Schema](../images/1_2_Priority_Mart.png)
 
 - **SQL Files:**
   - [`05_create_priority_mart.sql`](./05_create_priority_mart.sql) – Initial build of priority roles and jobs snapshot
@@ -111,18 +109,6 @@ Priority role tracking with incremental updates using MERGE operations.
 - **Purpose:** Track priority roles and job snapshots with incremental update capabilities
 - **Grain:** One row per job posting with priority level assignment
 - **Key Features:** **MERGE operations for incremental updates** - demonstrates production-ready upsert patterns (INSERT, UPDATE, DELETE in single statement)
-
-### Company Mart (Optional)
-
-Company hiring trends by role, location, and month.
-
-![Company Mart Schema](../../Resources/images/1_2_Company_Mart.png)
-
-- **SQL File:** [`07_create_company_mart.sql`](./07_create_company_mart.sql) – Builds company hiring trends mart (optional)
-- **Purpose:** Company hiring trends analysis by role, location, and month
-- **Grain:** `company_id + job_title_short_id + location_id + month_start_date`
-- **Key Features:** Bridge tables for many-to-many relationships (company-location, job title hierarchies)
-- **Note:** This mart is optional and can be skipped if not needed
 
 ---
 
